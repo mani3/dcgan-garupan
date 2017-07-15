@@ -1,5 +1,6 @@
 import os
 import math
+import random
 from glob import glob
 
 from PIL import Image
@@ -88,9 +89,13 @@ class Dataset(object):
         IMAGE_MAX_VALUE = 255
 
         current_index = 0
+        
+        image_files = self.data_files
+        random.shuffle(image_files)
+        
         while current_index + batch_size <= self.shape[0]:
             data_batch = get_batch(
-                self.data_files[current_index:current_index + batch_size],
+                image_files[current_index:current_index + batch_size],
                 *self.shape[1:3],
                 self.image_mode)
 
